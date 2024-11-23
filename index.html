@@ -14,5 +14,18 @@
 </head>
 <body>
   
+  <div class="game">
+    <canvas id="board" class="game__board"></canvas>
+    <div class="game__statistics">
+      <div>
+        <h1>Tetris</h1>
+        <p>Score: <span id="score">0</span></p>
+        <p>Lines: <span id="lines">0</span></p>
+        <p>Level: <span id="level">0</span></p>
+        <canvas id="next" class="game__next"></canvas>
+      </div>
+      <button onclick="play()" class="game__play-btn">Play</button>
+    </div>
+  </div>
 </body>
 </html>

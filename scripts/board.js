@@ -14,4 +14,8 @@ class Board {
       { length: ROWS }, () => Array(COLS).fill(0)
     );
   }
+
+  valid(p) {
+    return true;
+  }
 }

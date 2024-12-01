@@ -15,6 +15,37 @@ let board = new Board();
 
 function play() {
   board.reset();
+  let piece = new Piece(ctx);
+
+  piece.draw();
+  board.piece = piece;
 
   console.table(board.grid);
 }
+
+const moves = {
+// Для перемещения тетрамино мы будем стирать старое отображение и копировать его в новых координатах. Чтобы получить эти новые координаты, сначала скопируем текущие, а затем изменим нужную (x или y) на единицу.
+//Так как координаты являются примитивными значениями, мы можем использовать spread-оператор, чтобы перенести их в новый объект.
+
+  [KEY.LEFT]: p => ({ ...p, x: p.x - 1 }),
+  [KEY.RIGHT]: p => ({ ...p, x: p.x + 1 }),
+  [KEY.DOWN]: p => ({ ...p, y: p.y + 1 }),
+};
+
+document.addEventListener('keydown', event => {
+  // console.log(event.key)
+  if (moves[event.key]) {
+    event.preventDefault();
+
+    // new coordinates of a piece
+    let p = moves[event.key](board.piece);
+
+    // checking new position
+    if (board.valid(p)) {
+      
+      board.piece.move(p);
+      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      board.piece.draw();
+    }
+  }
+});

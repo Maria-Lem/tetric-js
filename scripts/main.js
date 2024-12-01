@@ -9,3 +9,12 @@ ctx.canvas.height = ROWS * BLOCK_SIZE;
 // The CanvasRenderingContext2D.scale() method of the Canvas 2D API 
 //adds a scaling transformation to the canvas units horizontally and/or vertically.
 ctx.scale(BLOCK_SIZE, BLOCK_SIZE);
+
+// create new board from Board class
+let board = new Board();
+
+function play() {
+  board.reset();
+
+  console.table(board.grid);
+}

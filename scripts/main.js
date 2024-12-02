@@ -30,18 +30,27 @@ const moves = {
   [KEY.LEFT]: p => ({ ...p, x: p.x - 1 }),
   [KEY.RIGHT]: p => ({ ...p, x: p.x + 1 }),
   [KEY.DOWN]: p => ({ ...p, y: p.y + 1 }),
+  [KEY.SPACE]: p => ({ ...p, y: p.y + 1 }),
 };
 
 document.addEventListener('keydown', event => {
-  // console.log(event.key)
+  console.log(event.key)
   if (moves[event.key]) {
     event.preventDefault();
 
     // new coordinates of a piece
     let p = moves[event.key](board.piece);
 
-    // checking new position
-    if (board.valid(p)) {
+    if (event.key === KEY.SPACE) {
+      while (board.valid(p)) {
+        board.piece.move(p);
+
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        board.piece.draw();
+
+        p = moves[KEY.DOWN](board.piece);
+      }
+    } else if (board.valid(p)) { // checking new position
       
       board.piece.move(p);
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -49,3 +58,14 @@ document.addEventListener('keydown', event => {
     }
   }
 });
+
+// const getRecipies = () => {
+//   return fetch(`https://www.themealdb.com/api/json/v1/1/random.php`, {
+//     method: 'GET',
+//   })
+//   .then(res => res.json())
+//   .then(data => console.log(data))
+//   .catch(error => console.error('Error:', error))
+// }
+
+// getRecipies();
